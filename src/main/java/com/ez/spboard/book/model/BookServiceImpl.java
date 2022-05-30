@@ -1,9 +1,13 @@
 package com.ez.spboard.book.model;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.ez.spboard.common.SearchVO;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -20,6 +24,22 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public int insertBook(BookDTO dto) {
 		return bookDAO.insertBook(dto);
+	}
+	
+	public List<BookDTO> selectAll(SearchVO searchVo) {
+		return bookDAO.selectAll(searchVo);
+	}
+	
+	public int getTotalRecord(SearchVO searchVo) {
+		return bookDAO.getTotalRecord(searchVo);
+	}
+	
+	public BookDTO selectByNo(int no) {
+		return bookDAO.selectByNo(no);
+	}
+	
+	public int updateCount(int no) {
+		return bookDAO.updateCount(no);
 	}
 
 }

@@ -24,12 +24,14 @@ public class BoardDAOMybatis implements BoardDAO {
 		super();
 		logger.info("생성자 호출 : BoardDAOMybatis");
 	}
-
+	
+	@Override
 	public int insertBoard(BoardVO vo) {
 		int cnt = sqlSession.insert(namespace + "insertBoard", vo);
 		return cnt;
 	}
 	
+	@Override
 	public List<BoardVO> selectAll(SearchVO searchVo) {
 		List<BoardVO> list = sqlSession.selectList(namespace + "selectAll", searchVo);
 		return list;
@@ -41,11 +43,13 @@ public class BoardDAOMybatis implements BoardDAO {
 		return totalRecord;
 	}
 	
+	@Override
 	public BoardVO selectByNo(int no) {
 		BoardVO vo = sqlSession.selectOne(namespace + "selectByNo", no); 
 		return vo;
 	}
 	
+	@Override
 	public int updateCount(int no) {
 		int cnt = sqlSession.update(namespace + "getTotalRecord", no); 
 		return cnt;

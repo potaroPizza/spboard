@@ -2,17 +2,36 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-	<!-- http://localhost:9090/springexam/book/bookList.do -->
+	<!-- http://localhost:9090/spboard/book/bookList.do -->
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="">
 <title></title>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript">	
+	//페에지 번호 클릭시 실행할 함수
+	function pageProc(curPage){
+		$('input[name=currentPage]').val(curPage);
+		$('form[name=frmPage]').submit();
+	}
+</script>
 </head>
 <body>
 	<h1>책 목록</h1>
+	
+	<!-- 페이징 처리를 위한 form -->
+	<form action="<c:url value='/book/bookList.do'/>"
+		method="post" name="frmPage">
+		<input type="text" name="searchKeyword" value="${param.searchKeyword }">
+		<input type="text" name="searchCondition" value="${param.searchCondition }">
+		<input type="text" name="currentPage">	
+	</form>
+	
 	<table border="1" style="width:500px; border-collapse:collapse;">
 		<tr>
 			<th>번호</th>
@@ -28,14 +47,8 @@
 		</c:if>
 		<!-- 반복구간 시작 -->
 		<c:if test="${!empty list}">
-			<c:set var="num" value="${pageVo.num}"/>
-			<c:set var="curPos" value="${pageVo.curPos}"/>
 			
-			<c:forEach var="i" begin="1" end="${pageVo.pageSize}">
-				<c:if test="${num >= 1}">
-					<c:set var="num" value="${num-1}" />
-		  			<c:set var="dto" value="${list[curPos]}" />
-		  			<c:set var="curPos" value="${curPos+1}" />
+			<c:forEach var="dto" items="${list }">
 		  
 					<tr>
 						<td>${dto.no}</td>
@@ -44,9 +57,11 @@
 						<td style="text-align:right">
 							${dto.price}</td>
 						<td>${dto.publisher}</td>
-						<td>${dto.joindate}</td>
+						<td>
+							<fmt:formatDate value="${dto.joindate}" pattern="yyyy-MM-dd"/>
+						</td>
 					</tr>
-				</c:if>
+
 			</c:forEach>
 		<!-- 반복구간 끝 -->
 		</c:if>
@@ -55,30 +70,30 @@
 	
     <div>
     	<!-- 페이지 -->
-    	<c:if test="${pageVo.firstPage > 1}">
-		<a href="<c:url value='/book/bookList.do?currentPage=${pageVo.firstPage-1}&searchCondition=${param.searchCondition}&searchKeyword=${param.searchKeyword}' />">
-			<img src="../images/first.JPG">
+    	<c:if test="${pagingInfo.firstPage > 1}">
+		<a href="<c:url value='/book/bookList.do?currentPage=${pagingInfo.firstPage-1}&searchCondition=${param.searchCondition}&searchKeyword=${param.searchKeyword}' />">
+			<img src="<c:url value='/resources/images/first.JPG'/> ">
 		</a>				
 		</c:if>
 		<!-- [1][2][3][4][5][6][7][8][9][10] -->
-		<c:forEach var="i" begin="${pageVo.firstPage}" end="${pageVo.lastPage}">
-			<c:if test="${i<pageVo.totalPage}">
-				<c:if test="${i==pageVo.currentPage}">
+		<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+			<c:if test="${i<pagingInfo.totalPage}">
+				<c:if test="${i==pagingInfo.currentPage}">
 					<span style="color:blue; font-weight:bold;">${i}</span>
 				</c:if>
-				<c:if test="${i!=pageVo.currentPage}">
-					<a href="<c:url value='/book/bookList.do?currentPage=${i}&searchCondition=${param.searchCondition}&searchKeyword=${param.searchKeyword}' />">
-						[${i}]
-					</a>
+				<c:if test="${i!=pagingInfo.currentPage}">
+					<a href="#" onclick="pageProc(${i})">
+ 						[${i}]
+ 					</a>
 				</c:if>
 			</c:if>
 				<!-- if를 여기다 쓰고 조건을 같을때==로 해도 무방하다. -->
 		</c:forEach>
 		
 		<!-- 블록을 다음으로 전환하는 아이콘 '>' -->	
-		<c:if test="">
-			<a href="<c:url value='/book/bookList.do?currentPage=${pageVo.lastPage+1}&searchCondition=${param.searchCondition}&searchKeyword=${param.searchKeyword}' />">
-				<img src="../images/last.JPG">
+		<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+			<a href="#" onclick="pageProc(${pagingInfo.lastPage+1})"> 
+				<img src='<c:url value="/resources/images/last.JPG"/>'>
 			</a>				
 		</c:if>
     </div>

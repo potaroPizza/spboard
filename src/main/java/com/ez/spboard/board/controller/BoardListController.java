@@ -43,7 +43,7 @@ public class BoardListController {
 		
 		//totalRecord개수 구하기
 		int totalRecord=boardService.getTotalRecord(searchVo);
-		logger.info("글목록 totalRecord={}", totalRecord);
+		logger.info("글 목록 totalRecord={}", totalRecord);
 		
 		// 이거 빼먹으면, 다른거 계산이 안됨
 		pagingInfo.setTotalRecord(totalRecord);

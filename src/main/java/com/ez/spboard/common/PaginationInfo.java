@@ -77,7 +77,8 @@ public class PaginationInfo {
 		}
 		return lastPage;
 	}
-
+	
+	// 현재 페이지의 첫 레코드 인덱스
 	public int getFirstRecordIndex() {
 		//curPos=(currentPage-1)*pageSize;
 		firstRecordIndex = (getCurrentPage() - 1) * getRecordCountPerPage();
