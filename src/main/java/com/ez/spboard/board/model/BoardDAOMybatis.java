@@ -1,10 +1,14 @@
 package com.ez.spboard.board.model;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.ez.spboard.common.SearchVO;
 
 @Repository
 public class BoardDAOMybatis implements BoardDAO {
@@ -25,14 +29,29 @@ public class BoardDAOMybatis implements BoardDAO {
 		int cnt = sqlSession.insert(namespace + "insertBoard", vo);
 		return cnt;
 	}
-/*	
-	public List<BoardVO> selectAll() {
-		
+	
+	public List<BoardVO> selectAll(SearchVO searchVo) {
+		List<BoardVO> list = sqlSession.selectList(namespace + "selectAll", searchVo);
+		return list;
+	}
+
+	@Override
+	public int getTotalRecord(SearchVO searchVo) {
+		int totalRecord = sqlSession.selectOne(namespace + "getTotalRecord", searchVo);
+		return totalRecord;
 	}
 	
 	public BoardVO selectByNo(int no) {
-		
+		BoardVO vo = sqlSession.selectOne(namespace + "selectByNo", no); 
+		return vo;
 	}
+	
+	public int updateCount(int no) {
+		int cnt = sqlSession.update(namespace + "getTotalRecord", no); 
+		return cnt;
+	}
+	
+	/*	
 	
 	public int updateBoard(BoardVO vo) {
 		
@@ -42,13 +61,6 @@ public class BoardDAOMybatis implements BoardDAO {
 		
 	}
 	
-	public int updateCount(int no) {
-		
-	}
-	
-	public List<BoardVO> selectAll(String condition, String keyword) {
-		
-	}
 	
 	public List<BoardVO> selectMainNotice() {
 		

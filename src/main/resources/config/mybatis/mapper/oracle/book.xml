@@ -2,22 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="config.mybatis.mapper.oracle.board">
+<mapper namespace="config.mybatis.mapper.oracle.book">
 
-	<sql id="searchWhere">
+	<insert id="insertBook" parameterType="BookDTO">
+		<selectKey resultType="int" keyProperty="no" order="BEFORE">
+			select book_seq.nextval from dual
+		</selectKey>
+		insert into book(no, title, price, publisher)
+		values(#{no}, #{title}, #{price}, #{publisher})
+	</insert>
+
+<!-- 	<sql id="searchWhere">
 		<if test="searchKeyword != null and searchKeyword != ''">
 	        where ${searchCondition} 
 	        	like '%' || #{searchKeyword} || '%'
 		</if>
 	</sql>
 	
-	<insert id="insertBoard" parameterType="BoardVO">
-		<selectKey resultType="int" keyProperty="no" order="BEFORE">
-			select board_seq.nextval from dual
-		</selectKey>
-		insert into board(no, name, pwd, title, email, content)
-		values(#{no}, #{name}, #{pwd}, #{title}, #{email}, #{content})
-	</insert>
 	
 	<select id="selectAll" parameterType="searchVo" resultType="boardVo">
 		select *
@@ -48,7 +49,7 @@
 	
 	<select id="selectByNo" parameterType="int" resultType="boardVo">
 		select * from board where no = #{no}
-	</select>
+	</select> -->
 	
 	
 </mapper>

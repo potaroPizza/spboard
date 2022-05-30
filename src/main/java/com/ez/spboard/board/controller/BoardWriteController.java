@@ -35,6 +35,8 @@ public class BoardWriteController {
 		logger.info("글 등록 처리 결과, cnt = {}", cnt);
 		
 		return "redirect:/board/list.do";
+		// do => controller => service인터페이스 => 구현체service의 메소드 호출  
+		// =>dao인터페이스 => 구현체dao의 메소드호출
 	}
 }
 

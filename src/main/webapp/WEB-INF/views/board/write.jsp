@@ -10,6 +10,8 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/formLayout.css'/> "/>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/mystyle.css'/> "/>
 
+	<!-- http://localhost:9090/spboard/board/write.do -->
+
 <title>자유게시판 글쓰기 - 허브몰</title>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.6.0.min.js'/> "></script>
 <script type="text/javascript">
