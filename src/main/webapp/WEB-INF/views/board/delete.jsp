@@ -11,10 +11,11 @@
 <head>
 <meta charset="utf-8">
 <title>자유게시판 글 삭제 - 허브몰</title>
-<link rel="stylesheet" type="text/css" href="../css/mainstyle.css" />
-<link rel="stylesheet" type="text/css" href="../css/clear.css" />
-<link rel="stylesheet" type="text/css" href="../css/formLayout.css" />
-<link rel="stylesheet" type="text/css" href="../css/mystyle.css" />
+<link rel="stylesheet" type="text/css" 
+	href="<c:url value='/resources/css/mainstyle.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/clear.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/formLayout.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/mystyle.css'/>" />
 <style type="text/css">
 	body{
 		padding:5px;
@@ -43,13 +44,7 @@
 	}
 </style>
 
-<%
-	// 뷰페이지
-	// request에서 결과 읽어와서 화면 처리
-	//String no = request.getParameter("no");
-%>
-
-<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
 		$('form[name=frmDelete]').submit(function(){
@@ -69,7 +64,7 @@
 <body>
 <div class="divForm">
 <form name="frmDelete" method="post"
-	action="<c:url value='/board/delete_ok.do' />" >
+	action="<c:url value='/board/delete.do' />" >
 		<fieldset>
 			<input type="hidden" name="no" value="${param.no}"/>
 		<legend>글 삭제</legend>

@@ -50,6 +50,22 @@
 		select * from board where no = #{no}
 	</select>
 	
+	<select id="selectPwd" parameterType="int" resultType="String">
+		select pwd from board where no = #{no}
+	</select>
+	
+	<update id="updateBoard" parameterType="boardVo">
+		update board 
+		set name = #{name}, title = #{title},
+			email = #{email}, content = #{content}
+		where no = #{no}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board
+		where no = #{no}
+	</delete>
+	
 	
 </mapper>
 

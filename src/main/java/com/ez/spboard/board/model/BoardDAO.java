@@ -11,5 +11,7 @@ public interface BoardDAO {
 	public List<BoardVO> selectAll(SearchVO searchVo);
 	public BoardVO selectByNo(int no);
 	public int updateCount(int no);
-	
+	String selectPwd(int no);
+	public int updateBoard(BoardVO vo);
+	public int deleteBoard(int no);
 }

@@ -1,7 +1,3 @@
-<%@page import="com.mymvc.board.model.CommentsVO"%>
-<%@page import="java.util.List"%>
-<%@page import="com.mymvc.board.model.BoardVo"%>
-<%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     
@@ -14,11 +10,12 @@
 	
 	//3. request에 저장된 결과 읽어와서 화면 처리
 	//String no = request.getParameter("no");
-	BoardVO bdVo = (BoardVO)request.getAttribute("bdVo");
+	//BoardVO vo = (BoardVO)request.getAttribute("vo");
 	//List<CommentsVO> cList = (List<CommentsVO>)request.getAttribute("cList");
 	
 	// 개행처리 가능하게 설정!
-	String content = bdVo.getContent();
+	/*
+	String content = vo.getContent();
 	if(content!=null && !content.isEmpty()) {
 		// 매개변수 1을 매개변수 2로 변환하는 메소드 : replace(문자열1, 문자열2)
 		content = content.replace("\r\n", "<br>");
@@ -27,16 +24,18 @@
 	} else {
 		content = "";
 	}
+	*/
 %>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <title>자유게시판 상세보기 - 허브몰</title>
-<link rel="stylesheet" type="text/css" href="../css/mainstyle.css" />
-<link rel="stylesheet" type="text/css" href="../css/clear.css" />
-<link rel="stylesheet" type="text/css" href="../css/formLayout.css" />
-<link rel="stylesheet" type="text/css" href="../css/mystyle.css" />
+<link rel="stylesheet" type="text/css" 
+	href="<c:url value='/resources/css/mainstyle.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/clear.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/formLayout.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/mystyle.css'/>" />
 <style type="text/css">
 	body{
 		padding:5px;
@@ -45,29 +44,35 @@
 	.divForm {
 		width: 500px;
 		}
-</style>  
+</style> 
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript">
+
+</script> 
 </head>
 <body>
 	<h2>글 상세보기</h2>
 	<div class="divForm">
 		<div class="firstDiv">
-			<span class="sp1">제목</span> <span>${bdVo.title}</span>
+			<span class="sp1">제목</span> <span>${vo.title}</span>
 		</div>
 		<div>
-			<span class="sp1">작성자</span> <span>${bdVo.name}</span>
+			<span class="sp1">작성자</span> <span>${vo.name}</span>
 		</div>
 		<div>
-			<span class="sp1">등록일</span> <span>${bdVo.regdate}</span>
+			<span class="sp1">등록일</span> <span>${vo.regdate}</span>
 		</div>
 		<div>
-			<span class="sp1">조회수</span> <span>${bdVo.readcount}</span>
+			<span class="sp1">조회수</span> <span>${vo.readcount}</span>
 		</div>
-		<div class="lastDiv">			
-			<p class="content"><%=content %></p>
-		</div>
+		<% pageContext.setAttribute("newLine", "\r\n");%>
+			<div class="lastDiv">			
+				<p class="content">${fn:replace(vo.content, newLine, "<br>")}</p>
+			</div>
+		
 		<div class="center">
-			<a href="<c:url value='/board/edit.do?no=${bdVo.no}' />">수정</a> |
-        	<a href="<c:url value='/board/delete.do?no=${bdVo.no}' />">삭제</a> |
+			<a href="<c:url value='/board/edit.do?no=${param.no}' />">수정</a> |
+        	<a href="<c:url value='/board/delete.do?no=${param.no}' />">삭제</a> |
         	<a href="<c:url value='/board/list.do' />">목록</a>			
 		</div>
 	</div>

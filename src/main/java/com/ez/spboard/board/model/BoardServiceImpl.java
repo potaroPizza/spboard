@@ -46,11 +46,27 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.updateCount(no);
 	}
 	
-	
-/*
 	public int updateBoard(BoardVO vo) {
 		return boardDao.updateBoard(vo);
 	}
+	
+	public boolean checkPwd(int no, String pwd) {
+		String dbPwd = boardDao.selectPwd(no);
+		
+		boolean result = false;
+		if(dbPwd.equals(pwd)) {
+			result = true;	// 비밀번호 일치
+		}
+		
+		return result;
+	}
+	
+	public int deleteBoard(int no) {
+		return boardDao.deleteBoard(no);
+	}
+	
+/*
+
 	public List<BoardVO> selectMainNotice() {
 		return boardDao.selectMainNotice();
 	}
@@ -72,9 +88,6 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.updateCount(no);
 	}
 	
-	public boolean checkPwd(int no, String pwd) {
-		return boardDao.checkPwd(no, pwd);
-	}
 */
 
 	
